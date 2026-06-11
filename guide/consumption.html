@@ -162,8 +162,8 @@ main hr{border:none;border-top:1px solid var(--border);margin:24px 0}
 </tbody>
 </table>
 <blockquote>
-<p>⚠️ <strong>Важно про эффекты.</strong> Плагин глобально ограничивает все эффекты через <code>EffectUtil</code>:
-максимальный <strong>уровень I</strong> (не бывает Speed II/III, Slowness II/III, Resistance II/III и т.д.) и максимальная <strong>длительность 5 секунд</strong> (100 тиков). Это касается всех источников — потребление, передоз, ломка, трипы, глитч-визуал. Ниже в таблице указаны «запрошенные» кодом значения — реально игрок получает Level I на 5 сек.</p>
+<blockquote>
+<p>⚠️ <strong>Важно про эффекты.</strong> Плагин ограничивает все эффекты до <strong>уровня I и 5 секунд</strong> (максимум). Независимо от того, что написано в рецепте — в игре вы получите только Скорость I на 5 секунд, а не Скорость III на минуту. Это касается всего: еды, трубок, шприцев, передоза, ломки, галлюцинаций. Ниже в таблице столбец «Эффекты (как запрашиваются)» — это то, что пытался выдать код, а «Реально получает игрок» — что вы увидите в игре.</p>
 </blockquote>
 <h2 id="_3">Таблица веществ</h2>
 <p>Шанс зависимости и кулдаун — реальные значения. По эффектам и длительности см. важную пометку выше.</p>
@@ -180,86 +180,86 @@ main hr{border:none;border-top:1px solid var(--border);margin:24px 0}
 <tbody>
 <tr>
 <td><strong>Табак</strong></td>
-<td>Speed I, Haste I</td>
-<td>Speed I 5 c, Haste I 5 c</td>
+<td>Скорость I, Спешка I</td>
+<td>Скорость I 5 c, Спешка I 5 c</td>
 <td>10 сек</td>
 <td>5%</td>
 </tr>
 <tr>
 <td><strong>Марихуана</strong></td>
-<td>Slowness I, Night Vision, Regen I</td>
-<td>Slowness I 5 c, Night Vision 5 c, Regen I 5 c</td>
+<td>Замедление I, Ночное зрение, Регенерация I</td>
+<td>Замедление I 5 c, Ночное зрение 5 c, Регенерация I 5 c</td>
 <td>15 сек</td>
 <td>8%</td>
 </tr>
 <tr>
 <td><strong>Гашиш</strong></td>
-<td>Slowness II, Night Vision, Regen II, Nausea I</td>
-<td>Slowness I 5 c, Night Vision 5 c, Regen I 5 c, Nausea I 5 c</td>
+<td>Замедление II, Ночное зрение, Регенерация II, Тошнота I</td>
+<td>Замедление I 5 c, Ночное зрение 5 c, Регенерация I 5 c, Тошнота I 5 c</td>
 <td>20 сек</td>
 <td>12%</td>
 </tr>
 <tr>
 <td><strong>Грибы</strong> (все сушёные)</td>
-<td>Nausea II, Night Vision, Jump Boost II</td>
-<td>Nausea I 5 c, Night Vision 5 c, Jump Boost I 5 c</td>
+<td>Тошнота II, Ночное зрение, Прыгучесть II</td>
+<td>Тошнота I 5 c, Ночное зрение 5 c, Прыгучесть I 5 c</td>
 <td>нет</td>
 <td>0%</td>
 </tr>
 <tr>
 <td><strong>Морфин</strong></td>
-<td>Slowness II, Resistance II, Regen II</td>
-<td>Slowness I 5 c, Resistance I 5 c, Regen I 5 c</td>
+<td>Замедление II, Сопротивление II, Регенерация II</td>
+<td>Замедление I 5 c, Сопротивление I 5 c, Регенерация I 5 c</td>
 <td>30 сек</td>
 <td>25%</td>
 </tr>
 <tr>
 <td><strong>Героин</strong></td>
-<td>Slowness III, Resistance III, Regen III, Nausea I</td>
-<td>Slowness I 5 c, Resistance I 5 c, Regen I 5 c, Nausea I 5 c</td>
+<td>Замедление III, Сопротивление III, Регенерация III, Тошнота I</td>
+<td>Замедление I 5 c, Сопротивление I 5 c, Регенерация I 5 c, Тошнота I 5 c</td>
 <td>40 сек</td>
 <td>40%</td>
 </tr>
 <tr>
 <td><strong>Мескалин</strong></td>
-<td>Night Vision, Nausea II, Jump Boost III</td>
-<td>Night Vision 5 c, Nausea I 5 c, Jump Boost I 5 c</td>
+<td>Ночное зрение, Тошнота II, Прыгучесть III</td>
+<td>Ночное зрение 5 c, Тошнота I 5 c, Прыгучесть I 5 c</td>
 <td>нет</td>
 <td>0%</td>
 </tr>
 <tr>
 <td><strong>Кокаин</strong> (порошок)</td>
-<td>Speed III, Haste II, Strength I</td>
-<td>Speed I 5 c, Haste I 5 c, Strength I 5 c</td>
+<td>Скорость III, Спешка II, Сила I</td>
+<td>Скорость I 5 c, Спешка I 5 c, Сила I 5 c</td>
 <td>25 сек</td>
 <td>20%</td>
 </tr>
 <tr>
 <td><strong>Метамфетамин HCl</strong></td>
-<td>Speed III, Haste III, Strength II, Jump Boost II</td>
-<td>Speed I 5 c, Haste I 5 c, Strength I 5 c, Jump Boost I 5 c</td>
+<td>Скорость III, Спешка III, Сила II, Прыгучесть II</td>
+<td>Скорость I 5 c, Спешка I 5 c, Сила I 5 c, Прыгучесть I 5 c</td>
 <td>35 сек</td>
 <td>35%</td>
 </tr>
 <tr>
 <td><strong>Весёлое печенье</strong></td>
-<td>Speed I, Regen I + тряска экрана</td>
-<td>Speed I 5 c, Regen I 5 c + 1 мин частицы</td>
+<td>Скорость I, Регенерация I + тряска экрана</td>
+<td>Скорость I 5 c, Регенерация I 5 c + 1 мин частицы</td>
 <td>10 сек</td>
 <td>5%</td>
 </tr>
 </tbody>
 </table>
-<p>Реальная длительность = <code>min(100, max(20, базовая × чистота / 100))</code> тиков, то есть <strong>5 секунд</strong> при чистоте ≥ 50%, чуть короче на грязном продукте. Запросы кода на 30–180 секунд игнорируются — обрезаются до 5.</p>
+<p><strong>Фактическая длительность</strong> — всегда 5 секунд, если чистота 50%+. На очень грязном продукте эффект может быть чуть короче, но в обычной игре считайте все эффекты длительностью 5 секунд (уровень I). Запрошенные кодом 30–180 секунд просто обрезаются до 5 — так работает защита от дисбаланса.</p>
 <h2 id="_4">Кулдаун — общий, не персональный</h2>
 <p>Кулдаун привязан к игроку, а не к веществу: после любого приёма окно общего кулдауна сбрасывается на новое вещество. Грибы и мескалин не ставят кулдаун вообще. Подробнее — <a href="risks.html">Риски</a>.</p>
 <h2 id="90">Бонус за чистоту 90%+</h2>
 <p>Чистейший продукт (PURE, 90–100%) даёт дополнительный эффект (тоже Level I на 5 сек):</p>
 <ul>
 <li><strong>Марихуана / Гашиш</strong> → Мягкое падение (Slow Falling I 5 c)</li>
-<li><strong>Кокаин / Метамфетамин</strong> → Скорость (Speed I 5 c)</li>
+<li><strong>Кокаин / Метамфетамин</strong> → Скорость (Скорость I 5 c)</li>
 <li><strong>Грибы / Мескалин</strong> → Левитация (Levitation I 5 c)</li>
-<li><strong>Морфин / Героин</strong> → Сопротивление (Resistance I 5 c)</li>
+<li><strong>Морфин / Героин</strong> → Сопротивление (Сопротивление I 5 c)</li>
 <li><strong>Свечение</strong> (Glowing I 5 c) — вас видно издалека (PvP-предупреждение!)</li>
 </ul>
 <h2 id="_5">Трубка: забивка и курение</h2>
@@ -278,7 +278,7 @@ main hr{border:none;border-top:1px solid var(--border);margin:24px 0}
 <li><strong>Шприц атропина</strong> — антидот, см. <a href="risks.html">Риски</a>.</li>
 </ul>
 <h2 id="_7">Грибы</h2>
-<p>Три вида грибов (серый, мухомор, адский) собираются в мире как обычные грибы, сушатся в <a href="../machines/dryer.html">сушилке</a> и едятся. Зависимости <strong>не вызывают</strong> и кулдауна не имеют, но Nausea I 5 сек прилагается.</p>
+<p>Три вида грибов (серый, мухомор, адский) собираются в мире как обычные грибы, сушатся в <a href="../machines/dryer.html">сушилке</a> и едятся. Зависимости <strong>не вызывают</strong> и кулдауна не имеют, но Тошнота I 5 сек прилагается.</p>
 <h2 id="_8">Передоз — главное правило</h2>
 <p><strong>Не принимайте второе вещество, пока не закончились эффекты первого.</strong> Это гарантированная передозировка: 8 единиц урона (−4 ❤) мгновенно + кратковременные дебаффы. Подробности — в <a href="risks.html">Рисках</a>.</p>
 <div class="pager"><a class="prev" href="farming.html"><div class="dir">← Назад</div><div class="title">Фермерство</div></a><a class="next" href="purity.html"><div class="dir">Далее →</div><div class="title">Чистота продукта</div></a></div>

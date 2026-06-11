@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Фермерство — Gluki Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d0e; --panel:#0f1213; --panel2:#151819; --border:#1a1f1f;
+  --accent:#10b981; --accent-hover:#059669; --gold:#fab005;
+  --text:#e3e5e5; --muted:#8a9090; --green:#10b981; --red:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+a:hover{color:var(--accent-hover);text-decoration:underline}
+
+.layout{display:flex;min-height:100vh}
+
+/* -------- sidebar -------- */
+aside{width:300px;flex-shrink:0;background:var(--bg);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;padding:30px 20px 40px}
+aside .brand{display:flex;align-items:center;gap:10px;font-size:0.85em;text-transform:uppercase;
+  letter-spacing:0.15em;font-weight:500;padding:8px 0 20px;border-bottom:1px solid var(--border);
+  margin-bottom:16px;color:var(--accent);text-decoration:none}
+aside .brand svg{width:18px;height:18px;fill:currentColor}
+aside .brand small{color:var(--muted);font-weight:400;font-size:.75em;display:block;margin-top:2px;letter-spacing:normal;text-transform:none}
+aside h3{font-size:.7em;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);
+  margin:24px 0 8px;font-weight:600}
+aside a.nav{display:block;padding:6px 0;color:var(--muted);font-size:.9em;
+  margin:1px 0;transition:color .2s, padding-left .2s;text-decoration:none}
+aside a.nav:hover{color:var(--accent);padding-left:4px;text-decoration:none}
+aside a.nav.active{color:#fff;border-left:2px solid var(--accent);padding-left:8px;font-weight:500}
+
+/* -------- content -------- */
+main{flex:1;min-width:0;padding:40px 60px 80px;max-width:980px;margin:0 auto}
+main h1{font-family:'Instrument Serif',serif;font-size:3.2em;font-weight:400;line-height:1.05;
+  color:#fff;margin:0 0 24px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+main h1 em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--accent)}
+main h2{font-family:'Instrument Serif',serif;font-size:1.9em;color:#fff;margin:38px 0 14px;
+  border-bottom:1px solid var(--border);padding-bottom:6px;font-weight:400}
+main h3{font-family:'Instrument Serif',serif;font-size:1.4em;color:#fff;margin:28px 0 10px;
+  font-weight:400}
+main p{margin-bottom:16px}
+main ul,main ol{margin:10px 0 18px 24px}
+main li{margin:6px 0}
+main img{max-width:100%;border-radius:8px;margin:16px 0;display:block;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+main code{font-family:'JetBrains Mono',monospace;background:var(--panel);padding:3px 6px;border-radius:4px;
+  font-size:.85em;color:var(--accent)}
+main pre{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;
+  overflow-x:auto;margin:16px 0}
+main pre code{background:none;padding:0;color:var(--text);font-size:.9em}
+main blockquote{background:var(--panel);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;
+  padding:12px 18px;margin:20px 0;color:var(--text)}
+main blockquote p{margin:4px 0}
+main table{border-collapse:collapse;width:100%;margin:24px 0;font-size:.92em;background:var(--panel);
+  border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+main th{font-family:'Instrument Serif',serif;font-size:1.25em;font-weight:400;color:#fff;
+  text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
+main td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--muted)}
+main tr:last-child td{border-bottom:none}
+main tr:hover td{color:#fff;background:rgba(16,185,129,.03)}
+main hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* prev/next */
+.pager{display:flex;gap:14px;margin-top:48px;border-top:1px solid var(--border);padding-top:24px}
+.pager a{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:8px;
+  padding:14px 18px;transition:border-color .15s,transform .15s;text-decoration:none}
+.pager a:hover{border-color:var(--accent);transform:translateY(-1px);text-decoration:none}
+.pager .dir{font-size:.75em;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.pager .title{font-family:'Instrument Serif',serif;font-size:1.4em;color:var(--accent);font-weight:400;margin-top:4px}
+.pager a.next{text-align:right}
+
+/* mobile */
+#burger{display:none}
+@media (max-width:900px){
+  aside{position:fixed;left:-310px;transition:left .25s;z-index:60;background:var(--bg)}
+  aside.open{left:0}
+  #burger{display:block;position:fixed;top:14px;left:14px;z-index:70;background:var(--panel);
+    border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 12px;font-size:1.1em;cursor:pointer}
+  main{padding:60px 20px 60px}
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#232929;border-radius:4px}
+::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+<button id="burger" onclick="document.querySelector('aside').classList.toggle('open')">☰</button>
+<div class="layout">
+<aside>
+  <a class="brand" href="../index.html">
+    <svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L7.66,17C14.7,16 18.57,11.5 20,8C22,8 23,5.5 23,5.5C23,5.5 21,6 20,6C20,6 21,3 21,3C21,3 18.5,4 17.5,5C17.5,5 18,3 18,3C18,3 15.5,4.5 14.5,6C14.5,6 15,4 15,4C15,4 13.2,5.2 12.35,6.85C13.9,6.5 15.5,6.3 17,8M12.5,9.5C12.5,9.5 9.5,10 8,12C8,12 10,12 11.5,11.2C9.5,12.5 8,15 8,15C8,15 9.5,13.5 11,13.5C9,15.5 8.5,18 8.5,18C8.5,18 10,16.5 12,15.5C11.5,17.5 11,20 11,20C11,20 12.5,17.5 13.5,16C13.5,16 14.5,17 15,18C15,18 15,16 14.5,14.5C16,14.5 18.5,14.5 18.5,14.5C18.5,14.5 16.5,13.5 15,13C16,12 17.5,10.5 17.5,10.5C17.5,10.5 15.5,11.5 14,12C14.5,10.5 15,8.5 15,8.5C15,8.5 13.5,10.5 12.5,9.5Z"/></svg>
+    <span>Gluki Wiki<small>вики для игроков</small></span>
+  </a>
+  <a class="nav" href="../index.html">Главная</a>
+<h3>Гайды</h3>
+<a class="nav" href="quick-start.html">Быстрый старт</a>
+<a class="nav active" href="farming.html">Фермерство</a>
+<a class="nav" href="consumption.html">Употребление и эффекты</a>
+<a class="nav" href="purity.html">Чистота продукта</a>
+<a class="nav" href="risks.html">Риски: кулдаун, передоз, зависимость</a>
+<a class="nav" href="hallucinations.html">Галлюцинации</a>
+<h3>Машины</h3>
+<a class="nav" href="../machines/index.html">Обзор машин</a>
+<a class="nav" href="../machines/dryer.html">Сушилка</a>
+<a class="nav" href="../machines/extractor.html">Экстрактор</a>
+<a class="nav" href="../machines/concentrator.html">Концентратор</a>
+<a class="nav" href="../machines/equipment.html">Измеритель и прочее оборудование</a>
+<h3>Рецепты</h3>
+<a class="nav" href="../recipes/index.html">Все рецепты</a>
+<a class="nav" href="../recipes/workbench.html">Верстак</a>
+<a class="nav" href="../recipes/dryer.html">Сушилка</a>
+<a class="nav" href="../recipes/extractor.html">Экстрактор</a>
+<a class="nav" href="../recipes/concentrator.html">Концентратор</a>
+<a class="nav" href="../recipes/chains.html">Цепочки производства</a>
+<h3>Справочник</h3>
+<a class="nav" href="../reference/items.html">Каталог предметов</a>
+<a class="nav" href="../reference/faq.html">FAQ</a>
+</aside>
+<main>
+<h1 id="_1">🌱 Фермерство</h1>
+<h2 id="_2">Культуры</h2>
+<table>
+<thead>
+<tr>
+<th>Культура</th>
+<th>Семечко</th>
+<th>Лучший биом (бонус чистоты)</th>
+<th>Худший биом (штраф)</th>
+<th>Время роста</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Мак</strong></td>
+<td>Семя мака</td>
+<td>Равнины, подсолнечные равнины (+20)</td>
+<td>Тайга (−35)</td>
+<td>~5 мин</td>
+</tr>
+<tr>
+<td><strong>Табак</strong></td>
+<td>Семя табака</td>
+<td>Саванна (+20)</td>
+<td>Снежные биомы (−25)</td>
+<td>~4 мин</td>
+</tr>
+<tr>
+<td><strong>Марихуана</strong></td>
+<td>Семя марихуаны</td>
+<td>Болото, мангровое болото (+25)</td>
+<td>Пустыня, бэдлендс (−20)</td>
+<td>~3 мин</td>
+</tr>
+<tr>
+<td><strong>Кока</strong></td>
+<td>Семя коки</td>
+<td>Джунгли (+25)</td>
+<td>Пустыня, бэдлендс, снег (−35)</td>
+<td>~6 мин</td>
+</tr>
+<tr>
+<td><strong>Пейот</strong></td>
+<td>— (не сажается)</td>
+<td>Пустыня, бэдлендс (+25)</td>
+<td>Болото (−20)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Базовая чистота урожая — <strong>50</strong>. Биом добавляет бонус или штраф. Подробнее — в разделе <a href="purity.html">Чистота</a>.</p>
+<blockquote>
+<p>Время роста настраивается администратором; в таблице — значения по умолчанию.</p>
+</blockquote>
+<h2 id="_3">Где найти дикие семена</h2>
+<table>
+<thead>
+<tr>
+<th>Источник</th>
+<th>Биом</th>
+<th>Дроп</th>
+<th>Шанс (по умолч.)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Трава (короткая/высокая)</td>
+<td>Равнины</td>
+<td>Семя мака</td>
+<td>3%</td>
+</tr>
+<tr>
+<td>Трава</td>
+<td>Болота</td>
+<td>Семя марихуаны</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>Цветок мака</td>
+<td>Равнины</td>
+<td>Семя мака</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>Сухой куст</td>
+<td>Саванна</td>
+<td>Семя табака</td>
+<td>2%</td>
+</tr>
+<tr>
+<td>Кактус</td>
+<td>Пустыня, бэдлендс</td>
+<td>Пейот</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>Папоротник</td>
+<td>Джунгли, саванна</td>
+<td>Семя марихуаны</td>
+<td>~3%</td>
+</tr>
+<tr>
+<td>Листья джунглей</td>
+<td>Джунгли</td>
+<td>Семя коки</td>
+<td>~3%</td>
+</tr>
+<tr>
+<td>Дубовые/акациевые листья</td>
+<td>Саванна</td>
+<td>Семя табака</td>
+<td>~3%</td>
+</tr>
+<tr>
+<td>Мангровые листья</td>
+<td>Мангровые болота</td>
+<td>Лист табака (урожай)</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Пейот</strong> — особый случай: он падает с кактуса сразу в виде «урожая», сажать его не нужно. Сразу в сушилку — и можно есть (но эффект слабее, чем у мескалина из экстрактора).</p>
+<h2 id="_4">Условия посадки</h2>
+<p><img alt="Что нужно для посадки" src="../assets/recipes/farm-setup.png" /></p>
+<ol>
+<li><strong>Подзол</strong> — единственный блок, на который можно сажать.</li>
+<li><strong>UV-лампа</strong> в радиусе 5 блоков (<a href="../recipes/workbench.html">рецепт</a>).</li>
+<li><strong>Вода</strong> в радиусе 2 блоков.</li>
+<li><strong>Воздух</strong> над подзолом.</li>
+</ol>
+<p>Если всё выполнено — ПКМ семечком по подзолу, и росток посажен.</p>
+<h2 id="_5">Уход и сбор</h2>
+<ul>
+<li><strong>ЛКМ по ростку</strong> — показывает «Рост: X%» и сколько осталось ждать.</li>
+<li>Зрелое растение <strong>ломается</strong> любым инструментом, выпадает <strong>1–3 урожая + 2 семечка</strong>.</li>
+<li><strong>Кока</strong> — исключение: собирается <strong>только ножницами</strong> (теряют 20% прочности за сбор). Сломанная рукой кока дропает обычный тростник.</li>
+<li>Незрелое растение при поломке возвращает только одно семечко.</li>
+</ul>
+<h2 id="_6">Защита растений</h2>
+<ul>
+<li>Ростки не ломаются от физики соседних блоков.</li>
+<li>Листья растений плагина не гниют.</li>
+<li>Кока-столб при поломке нижнего блока отдаёт урожай и семена с каждого сегмента.</li>
+</ul>
+<h2 id="_7">Советы</h2>
+<ul>
+<li>Сажайте в <strong>«родном» биоме</strong> культуры — это самый дешёвый способ поднять чистоту конечного продукта.</li>
+<li>Одна UV-лампа покрывает несколько грядок — стройте компактно.</li>
+<li>Семена возвращаются при сборе (×2), так что ферма самоподдерживающаяся: одно найденное семечко = бесконечная плантация.</li>
+</ul>
+<div class="pager"><a class="prev" href="quick-start.html"><div class="dir">← Назад</div><div class="title">Быстрый старт</div></a><a class="next" href="consumption.html"><div class="dir">Далее →</div><div class="title">Употребление и эффекты</div></a></div>
+</main>
+</div>
+</body>
+</html>
